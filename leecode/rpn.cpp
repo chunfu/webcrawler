@@ -8,11 +8,16 @@ using namespace std;
 class Solution {
 	public:
 		int evalRPN(vector<string> &tokens) {
+			int result;
 			string *stack = new string[tokens.size()];
 			for(vector<string>::iterator i = tokens.begin(); i != tokens.end(); i++) {
-				if(atoi((*i).c_str()) {
-				cout << *i << endl;
+				//cout << atoi(((*i).push_back('f')).c_str());
+				string operand =  *i;
+				operand.push_back('f');
+				cout << atoi(operand.c_str()) << endl;
 			}
+
+			return result;
 		}
 };
 
@@ -27,4 +32,5 @@ int main() {
 	Solution *sol = new Solution();
 	sol->evalRPN(v);
 
+	return 0;
 }
