@@ -9,28 +9,55 @@ class Solution {
 	public:
 		int evalRPN(vector<string> &tokens) {
 			int result;
-			string *stack = new string[tokens.size()];
+			int *stack = new int[tokens.size()];
+			for(int i = 0; i < tokens.size(); i++)
+				stack[i] = 0;
+			int count = -1;
 			for(vector<string>::iterator i = tokens.begin(); i != tokens.end(); i++) {
-				//cout << atoi(((*i).push_back('f')).c_str());
 				string operand =  *i;
-				operand.push_back('f');
-				cout << atoi(operand.c_str()) << endl;
+				int num;
+				if(!operand.compare("+")) {
+					stack[count - 1] = stack[count-1] + stack[count];
+					count--;
+				} else if(!operand.compare("-")) {
+					stack[count - 1] = stack[count-1] - stack[count];
+					count--;
+				} else if(!operand.compare("*")) {
+					stack[count - 1] = stack[count-1] * stack[count];
+					count--;
+				} else if(!operand.compare("/")) {
+					stack[count - 1] = stack[count-1] / stack[count];
+					count--;
+				} else { //if(operand.size() > 1)
+					count++;
+					num = atoi(operand.c_str());
+					stack[count] = num;
+				}
 			}
 
-			return result;
+			return stack[count];
 		}
 };
 
 
 int main() {
+	//["10","6","9","3","+","-11","","/","","17","+","5","+"] 
 	vector<string> v;
-	v.push_back("2");
-	v.push_back("1");
-	v.push_back("+");
+	v.push_back("10");
+	v.push_back("6");
+	v.push_back("9");
 	v.push_back("3");
+	v.push_back("+");
+	v.push_back("-11");
 	v.push_back("*");
+	v.push_back("/");
+	v.push_back("*");
+	v.push_back("17");
+	v.push_back("+");
+	v.push_back("5");
+	v.push_back("+");
 	Solution *sol = new Solution();
-	sol->evalRPN(v);
+	cout << sol->evalRPN(v) << endl;
 
 	return 0;
 }
