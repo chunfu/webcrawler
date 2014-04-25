@@ -13,25 +13,10 @@ struct TreeNode {
 class Solution {
 	public:
 		int maxDepth(TreeNode *root) {
-			if(root != NULL) {
-				int depth = 1;
-				int d = 1;
-				maxDepth(root, d, depth);
-				return depth;
-			} else
+			if(root == NULL)
 				return 0;
-		}
-
-		void maxDepth(TreeNode *root, int d, int &depth) {
-			if(d > depth) {
-				depth = d;
-			}
-			//cout << "d: " << d << " depth: " << depth << " val: " << root->val << endl;
-			if(root->left) {
-				maxDepth(root->left, d+1, depth);
-			}
-			if(root->right) {
-				maxDepth(root->right, d+1, depth);
+			else {
+				return max(1 + maxDepth(root->left), 1 + maxDepth(root->right));
 			}
 		}
 };
